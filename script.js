@@ -1,9 +1,59 @@
-var colors = generateRandomColors(6);
-
+var numberOfSquares = 6;
+var colors = generateRandomColors(numberOfSquares);
 var squares = document.querySelectorAll(".square");
 var pickedColor = pickColor();
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.querySelector("#message");
+var h1 = document.querySelector("h1");
+var resetButton = document.querySelector("#reset");
+var easy = document.querySelector("#easyButton");
+var hard = document.querySelector("#hardButton");
+
+easy.addEventListener("click", function() {
+    easy.classList.add("selected");
+    hard.classList.remove("selected");
+    colors = generateRandomColors(3);
+    pickedColor = pickColor();
+    colorDisplay.textContent = pickedColor;
+    h1.style.background = "#232323";
+
+    for(var i = 0; i < squares.length; i++) {
+        if(colors[i]) {
+            squares[i].style.background = colors[i];
+        } else {
+            squares[i].style.display = "none";
+        }
+    }
+});
+
+hard.addEventListener("click", function() {
+    hard.classList.add("selected");
+    easy.classList.remove("selected");
+    colors = generateRandomColors(6);
+    pickedColor = pickColor();
+    colorDisplay.textContent = pickedColor;
+    h1.style.background = "#232323";
+
+    for(var i = 0; i < squares.length; i++) {
+        squares[i].style.background = colors[i];
+        squares[i].style.display = "block";
+    }
+});
+
+resetButton.addEventListener("click", function() {
+    // Generate new colors
+    colors = generateRandomColors(6);
+    // Pick new random color from array
+    pickedColor = pickColor();
+    // Change color display to match picked
+    colorDisplay.textContent = pickedColor;
+    h1.style.background = "#232323";
+    // Change colors of squares
+
+    for(var i = 0; i < squares.length; i++) {
+        squares[i].style.background = colors[i];
+    }
+});
 
 colorDisplay.textContent = pickedColor;
 
@@ -16,7 +66,9 @@ for(var i = 0; i < squares.length; i++) {
         //compare color to picked color
         if(clickedColor === pickedColor) {
             messageDisplay.textContent = "Correct";
+            h1.style.background = clickedColor;
             changeColors(clickedColor);
+            resetButton.textContent = "Play Again";
         } else {
             this.style.background = "#232323";
             messageDisplay.textContent = "Try Again";
