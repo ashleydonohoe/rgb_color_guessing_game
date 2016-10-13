@@ -12,7 +12,8 @@ var hard = document.querySelector("#hardButton");
 easy.addEventListener("click", function() {
     easy.classList.add("selected");
     hard.classList.remove("selected");
-    colors = generateRandomColors(3);
+    numberOfSquares = 3;
+    colors = generateRandomColors(numberOfSquares);
     pickedColor = pickColor();
     colorDisplay.textContent = pickedColor;
     h1.style.background = "#232323";
@@ -27,9 +28,10 @@ easy.addEventListener("click", function() {
 });
 
 hard.addEventListener("click", function() {
+    numberOfSquares = 6;
     hard.classList.add("selected");
     easy.classList.remove("selected");
-    colors = generateRandomColors(6);
+    colors = generateRandomColors(numberOfSquares);
     pickedColor = pickColor();
     colorDisplay.textContent = pickedColor;
     h1.style.background = "#232323";
@@ -42,7 +44,7 @@ hard.addEventListener("click", function() {
 
 resetButton.addEventListener("click", function() {
     // Generate new colors
-    colors = generateRandomColors(6);
+    colors = generateRandomColors(numberOfSquares);
     // Pick new random color from array
     pickedColor = pickColor();
     // Change color display to match picked
